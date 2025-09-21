@@ -12,7 +12,7 @@ const MONGODB = process.env.MONGODB_URI;
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", 
+    origin: "http://serverIP:5173", 
     credentials: true,
   })
 );
@@ -83,10 +83,13 @@ app.post("/login", async (req, res) => {
 
     const [email, password] = base64.decode(authHeader.split(" ")[1]).split(":");
     const user = await db.collection("users").findOne({ email });
+    console.log(user);
 
     if (!user || base64.decode(user.password) !== password) {
       return res.status(401).json({ error: "Invalid email or password" });
     }
+
+
 
     res.status(200).json({ message: "Login successful", user: { email: user.email, _id: user._id } });
   } catch (err) {
@@ -140,8 +143,6 @@ app.post("/api/userBankingDetails", async (req, res) => {
       email,
       method,
       cardNumber,
-      expiry,
-      cvv,
       accountNumber,
       bankName,
     } = req.body;
@@ -203,5 +204,5 @@ app.delete("/users/:id", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://serverIP:${PORT}`);
 });
