@@ -1,0 +1,316 @@
+{
+  "stats": {
+    "suites": 4,
+    "tests": 8,
+    "passes": 7,
+    "pending": 0,
+    "failures": 1,
+    "start": "2025-10-19T20:56:29.326Z",
+    "end": "2025-10-19T20:56:29.738Z",
+    "duration": 412,
+    "testsRegistered": 8,
+    "passPercent": 87.5,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "4e6f7bcf-4947-401a-8dd0-4bfd69385935",
+      "title": "",
+      "fullFile": "/home/carmel/Documents/CC.Goodies Backend/apiTest.js",
+      "file": "/apiTest.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ca3b248a-698a-43d0-8a6c-1edd8a703054",
+          "title": "CC Goodies API Tests",
+          "fullFile": "/home/carmel/Documents/CC.Goodies Backend/apiTest.js",
+          "file": "/apiTest.js",
+          "beforeHooks": [],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"CC Goodies API Tests\"",
+              "fullTitle": "CC Goodies API Tests \"after all\" hook in \"CC Goodies API Tests\"",
+              "timedOut": false,
+              "duration": 2,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "",
+              "err": {},
+              "uuid": "a26751b4-ca7e-42f7-b619-a10af2c3d83d",
+              "parentUUID": "ca3b248a-698a-43d0-8a6c-1edd8a703054",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "f79c08a1-f19e-481f-b5bd-9a927bb76d63",
+              "title": "USER & AUTH API",
+              "fullFile": "/home/carmel/Documents/CC.Goodies Backend/apiTest.js",
+              "file": "/apiTest.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "POST /users/login should return 401 for bad password",
+                  "fullTitle": "CC Goodies API Tests USER & AUTH API POST /users/login should return 401 for bad password",
+                  "timedOut": false,
+                  "duration": 42,
+                  "state": "passed",
+                  "speed": "medium",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "chai.request(server)\n    .post('/users/login')\n    .send({ email: user.email, password: \"COPASSWORD\" }) \n    .end((err, res) => {\n        expect(res).to.have.status(401, 'Response status should be 401');\n        done();\n    });",
+                  "err": {},
+                  "uuid": "d9b6717d-1c7f-4cf3-b61b-8967bd9b11cb",
+                  "parentUUID": "f79c08a1-f19e-481f-b5bd-9a927bb76d63",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "GET /users (Protected Route) should fail without authorization header (401)",
+                  "fullTitle": "CC Goodies API Tests USER & AUTH API GET /users (Protected Route) should fail without authorization header (401)",
+                  "timedOut": false,
+                  "duration": 7,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "chai.request(server)\n    .get('/users')\n    .end((err, res) => {\n        expect(res).to.have.status(401, 'Response status should be 401');\n        expect(res.body.message).to.include('Authorization header missing', 'Error message should indicate missing auth');\n        done();\n    });",
+                  "err": {},
+                  "uuid": "9a8ad5d3-8932-46a8-a15c-4e5c2f81238a",
+                  "parentUUID": "f79c08a1-f19e-481f-b5bd-9a927bb76d63",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "d9b6717d-1c7f-4cf3-b61b-8967bd9b11cb",
+                "9a8ad5d3-8932-46a8-a15c-4e5c2f81238a"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 49,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "e26e1e5a-9639-4239-a923-f2c563e7a426",
+              "title": "PRODUCTS API (/products)",
+              "fullFile": "/home/carmel/Documents/CC.Goodies Backend/apiTest.js",
+              "file": "/apiTest.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "POST /products should successfully add a new product (201)",
+                  "fullTitle": "CC Goodies API Tests PRODUCTS API (/products) POST /products should successfully add a new product (201)",
+                  "timedOut": false,
+                  "duration": 56,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const productData = {\n    productName: 'Instant Coffee 200g',\n    description: 'Premium instant coffee for a rich and aromatic experience.',\n    price: 75.00,\n    stock: 110,\n    category: 'Beverages'\n};\nchai.request(server)\n    .post('/products')\n    .send(productData)\n    .end((err, res) => {\n        expect(res).to.have.status(201, 'Response status should be 201');\n        expect(res.body).to.have.property('insertedId', 'Response should contain insertedId');\n        newProductId = res.body.insertedId;\n        done();\n    });",
+                  "err": {
+                    "message": "AssertionError: expected { message: 'Product created', …(1) } to have property 'insertedId'",
+                    "estack": "AssertionError: expected { message: 'Product created', …(1) } to have property 'insertedId'\n    at /home/carmel/Documents/CC.Goodies Backend/apiTest.js:98:46\n    at Request.callback (node_modules/superagent/lib/node/index.js:857:12)\n    at /home/carmel/Documents/CC.Goodies Backend/node_modules/superagent/lib/node/index.js:1070:18\n    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:21:7)\n    at IncomingMessage.emit (node:events:531:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)",
+                    "diff": null
+                  },
+                  "uuid": "e626c517-86c1-4227-be65-f908cf5c8bb4",
+                  "parentUUID": "e26e1e5a-9639-4239-a923-f2c563e7a426",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "GET /products should return a list of products (200)",
+                  "fullTitle": "CC Goodies API Tests PRODUCTS API (/products) GET /products should return a list of products (200)",
+                  "timedOut": false,
+                  "duration": 103,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "chai.request(server)\n    .get('/products')\n    .end((err, res) => {\n        expect(res).to.have.status(200, 'Response status should be 200');\n        expect(res.body).to.be.an('array', 'Response body should be an array');\n        expect(res.body.length).to.be.at.least(1, 'Array should contain at least one product');\n        done();\n    });",
+                  "err": {},
+                  "uuid": "486b1dcf-96d8-4a81-a56e-fcc3532f774f",
+                  "parentUUID": "e26e1e5a-9639-4239-a923-f2c563e7a426",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "GET /products/:id with invalid ID should return 404 Not Found",
+                  "fullTitle": "CC Goodies API Tests PRODUCTS API (/products) GET /products/:id with invalid ID should return 404 Not Found",
+                  "timedOut": false,
+                  "duration": 7,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "chai.request(server)\n    .get('/products/5f9d1b9b9d3b1e0017a5b3f1')\n    .end((err, res) => {\n        expect(res).to.have.status(404, 'Response status should be 404');\n        done();\n    });",
+                  "err": {},
+                  "uuid": "a524c477-eb81-4f71-aaaa-361c13896e0d",
+                  "parentUUID": "e26e1e5a-9639-4239-a923-f2c563e7a426",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "486b1dcf-96d8-4a81-a56e-fcc3532f774f",
+                "a524c477-eb81-4f71-aaaa-361c13896e0d"
+              ],
+              "failures": [
+                "e626c517-86c1-4227-be65-f908cf5c8bb4"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 166,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "6c400eb7-029f-46ea-ad6a-c3f848efd37d",
+              "title": "Banking & Order APIs",
+              "fullFile": "/home/carmel/Documents/CC.Goodies Backend/apiTest.js",
+              "file": "/apiTest.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "POST /api/userBankingDetails should save new banking details (201)",
+                  "fullTitle": "CC Goodies API Tests Banking & Order APIs POST /api/userBankingDetails should save new banking details (201)",
+                  "timedOut": false,
+                  "duration": 50,
+                  "state": "passed",
+                  "speed": "medium",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const bankingData = { userId: '1JB001', cardNumber: '', accountNumber: '6302941782', bankName: 'Standard Bank' };\nchai.request(server)\n    .post('/api/userBankingDetails')\n    .send(bankingData)\n    .end((err, res) => {\n        expect(res).to.have.status(201, 'Response status should be 201');\n        done();\n    });",
+                  "err": {},
+                  "uuid": "11a68efb-bf23-4f2a-be7c-70a3922637f9",
+                  "parentUUID": "6c400eb7-029f-46ea-ad6a-c3f848efd37d",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "POST /api/orders should save a new order (201)",
+                  "fullTitle": "CC Goodies API Tests Banking & Order APIs POST /api/orders should save a new order (201)",
+                  "timedOut": false,
+                  "duration": 53,
+                  "state": "passed",
+                  "speed": "medium",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const orderData = { email: 'jeffreyshotsha20@gmail.com', items: [{ name: 'Instant Coffee 200gug', price: 75.00 }], total: 75.00 };\nchai.request(server)\n    .post('/api/orders')\n    .send(orderData)\n    .end((err, res) => {\n        expect(res).to.have.status(201, 'Response status should be 201');\n        done();\n    });",
+                  "err": {},
+                  "uuid": "4a8a834d-d22f-4556-aaa4-a67abbfc6158",
+                  "parentUUID": "6c400eb7-029f-46ea-ad6a-c3f848efd37d",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "GET /api/orders/:email should return orders for a specific email (200)",
+                  "fullTitle": "CC Goodies API Tests Banking & Order APIs GET /api/orders/:email should return orders for a specific email (200)",
+                  "timedOut": false,
+                  "duration": 53,
+                  "state": "passed",
+                  "speed": "medium",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "chai.request(server)\n    .get('/api/orders/jeffreyshotsha20@gmail.com')\n    .end((err, res) => {\n        expect(res).to.have.status(200, 'Response status should be 200');\n        expect(res.body).to.be.an('array', 'Response body should be an array');\n        expect(res.body.length).to.be.at.least(1, 'Should return at least one order');\n        done();\n    });",
+                  "err": {},
+                  "uuid": "94e8cf43-a16d-4e3f-bb35-95810e46d81a",
+                  "parentUUID": "6c400eb7-029f-46ea-ad6a-c3f848efd37d",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "11a68efb-bf23-4f2a-be7c-70a3922637f9",
+                "4a8a834d-d22f-4556-aaa4-a67abbfc6158",
+                "94e8cf43-a16d-4e3f-bb35-95810e46d81a"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 156,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.8.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.3.0"
+    }
+  }
+}

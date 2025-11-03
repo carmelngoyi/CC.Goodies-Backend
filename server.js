@@ -10,12 +10,15 @@ const PORT = process.env.PORT || 3000;
 const MONGODB = process.env.MONGODB_URI;
 
 app.use(bodyParser.json());
-app.use(
-  cors({
-    origin: "http://serverIP:5173", 
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://cc-goodies-frontend.vercel.app",
+    "https://cc-goodies-frontend-rh475v9rb-carmel-ngoyis-projects.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 let db;
 
@@ -143,6 +146,8 @@ app.post("/api/userBankingDetails", async (req, res) => {
       email,
       method,
       cardNumber,
+      expiry,
+      cvv,
       accountNumber,
       bankName,
     } = req.body;
@@ -151,8 +156,6 @@ app.post("/api/userBankingDetails", async (req, res) => {
       email,
       method,
       cardNumber,
-      expiry,
-      cvv,
       accountNumber,
       bankName,
       createdAt: new Date(),
@@ -204,5 +207,5 @@ app.delete("/users/:id", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://serverIP:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
