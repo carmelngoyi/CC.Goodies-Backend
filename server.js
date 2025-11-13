@@ -12,12 +12,9 @@ const MONGODB = process.env.MONGODB_URI;
 app.use(bodyParser.json());
 app.use(cors({
   origin: [
-    "http://localhost:5173",
     "http://54.226.0.228:3000",
     "http://www.cc-goodies.com.s3-website-us-east-1.amazonaws.com/",
-    "https://cc-goodies-frontend.vercel.app",
-    "https://cc-goodies-frontend-rh475v9rb-carmel-ngoyis-projects.vercel.app"
-  ],
+    ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
