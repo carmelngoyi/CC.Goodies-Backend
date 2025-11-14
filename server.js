@@ -14,6 +14,8 @@ app.use(cors({
   origin: [
     "http://54.226.0.228:3000",
     "http://www.cc-goodies.com.s3-website-us-east-1.amazonaws.com/",
+    "http://cc-goodies.com.s3-website-us-east-1.amazonaws.com/",
+
     ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
