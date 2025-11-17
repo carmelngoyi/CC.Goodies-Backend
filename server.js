@@ -9,8 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB = process.env.MONGODB_URI;
 
-app.use(cors());
 app.use(bodyParser.json());
+app.use(cors());
 
 let db;
 
@@ -131,6 +131,323 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
+//Backery
+app.get("/backery", async (req, res) => {
+  try {
+    const backery = await db.collection("backery").find({}).toArray();
+    res.json(backery);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch detergent products" });
+  }
+});
+
+app.post("/backery", async (req, res) => {
+  try {
+    const result = await db.collection("backery").insertOne(req.body);
+    res.status(201).json({ message: "Product created", id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.put("/backery/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("backery").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    res.json({ message: "Product updated" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+app.delete("/backery/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("backery").deleteOne({ _id: new ObjectId(id) });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+//Bevarages
+app.get("/bevarages", async (req, res) => {
+  try {
+    const bevarages = await db.collection("bevarages").find({}).toArray();
+    res.json(bevarages);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch detergent products" });
+  }
+});
+
+app.post("/backery", async (req, res) => {
+  try {
+    const result = await db.collection("backery").insertOne(req.body);
+    res.status(201).json({ message: "Product created", id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.put("/backery/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("backery").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    res.json({ message: "Product updated" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+app.delete("/backery/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("backery").deleteOne({ _id: new ObjectId(id) });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+
+//Cereals
+app.get("/cereals", async (req, res) => {
+  try {
+    const cereals = await db.collection("cereals").find({}).toArray();
+    res.json(cereals);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
+app.post("/cereals", async (req, res) => {
+  try {
+    const result = await db.collection("cereals").insertOne(req.body);
+    res.status(201).json({ message: "Product created", id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.put("/cereals/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("cereal").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    res.json({ message: "Product updated" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+app.delete("/cereals/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("cereals").deleteOne({ _id: new ObjectId(id) });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+
+//Dairy
+app.get("/dairy", async (req, res) => {
+  try {
+    const dairy = await db.collection("dairy").find({}).toArray();
+    res.json(dairy);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
+app.post("/dairy", async (req, res) => {
+  try {
+    const result = await db.collection("dairy").insertOne(req.body);
+    res.status(201).json({ message: "Product created", id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.put("/dairy/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("dairy").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    res.json({ message: "Product updated" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+app.delete("/dairy/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("dairy").deleteOne({ _id: new ObjectId(id) });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+
+//Pantries
+app.get("/pantries", async (req, res) => {
+  try {
+    const pantries = await db.collection("pantries").find({}).toArray();
+    res.json(pantries);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
+app.post("/pantries", async (req, res) => {
+  try {
+    const result = await db.collection("pantries").insertOne(req.body);
+    res.status(201).json({ message: "Product created", id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.put("/pantries/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("pantries").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    res.json({ message: "Product updated" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+app.delete("/pantries/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("pantries").deleteOne({ _id: new ObjectId(id) });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+
+//Poultry
+app.get("/poultry", async (req, res) => {
+  try {
+    const poultry = await db.collection("poultry").find({}).toArray();
+    res.json(poultry);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
+app.post("/poultry", async (req, res) => {
+  try {
+    const result = await db.collection("poultry").insertOne(req.body);
+    res.status(201).json({ message: "Product created", id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.put("/poultry/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("poultry").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    res.json({ message: "Product updated" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+app.delete("/poultry/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("poultry").deleteOne({ _id: new ObjectId(id) });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+//Snacks
+app.get("/snacks", async (req, res) => {
+  try {
+    const products = await db.collection("snacks").find({}).toArray();
+    res.json(snacks);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
+app.post("/snacks", async (req, res) => {
+  try {
+    const result = await db.collection("snacks").insertOne(req.body);
+    res.status(201).json({ message: "Product created", id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.put("/snacks/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("snacks").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    res.json({ message: "Product updated" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+app.delete("/snacks/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("snacks").deleteOne({ _id: new ObjectId(id) });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+//Appliances
+app.get("/appliances", async (req, res) => {
+  try {
+    const products = await db.collection("appliances").find({}).toArray();
+    res.json(appliances);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
+app.post("/appliances", async (req, res) => {
+  try {
+    const result = await db.collection("appliances").insertOne(req.body);
+    res.status(201).json({ message: "Product created", id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to add product" });
+  }
+});
+
+app.put("/appliances/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("appliances").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    res.json({ message: "Product updated" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update product" });
+  }
+});
+
+app.delete("/appliances/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.collection("products").deleteOne({ _id: new ObjectId(id) });
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete product" });
+  }
+});
+
+
 //BANKING DETAILS
 app.post("/api/userBankingDetails", async (req, res) => {
   try {
@@ -198,6 +515,6 @@ app.delete("/users/:id", async (req, res) => {
   res.json({ message: "User deleted" });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
