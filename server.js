@@ -465,6 +465,8 @@ app.post("/api/userBankingDetails", async (req, res) => {
       email,
       method,
       cardNumber,
+      expiry,
+      cvv,
       accountNumber,
       bankName,
       createdAt: new Date(),
