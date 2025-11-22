@@ -131,39 +131,39 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
-//Backery
-app.get("/backery", async (req, res) => {
+//Bakery
+app.get("/bakery", async (req, res) => {
   try {
-    const backery = await db.collection("backery").find({}).toArray();
-    res.json(backery);
+    const bakery = await db.collection("bakery").find({}).toArray();
+    res.json(bakery);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch detergent products" });
+    res.status(500).json({ error: "Failed to fetch baked products" });
   }
 });
 
-app.post("/backery", async (req, res) => {
+app.post("/bakery", async (req, res) => {
   try {
-    const result = await db.collection("backery").insertOne(req.body);
+    const result = await db.collection("bakery").insertOne(req.body);
     res.status(201).json({ message: "Product created", id: result.insertedId });
   } catch (err) {
     res.status(500).json({ error: "Failed to add product" });
   }
 });
 
-app.put("/backery/:id", async (req, res) => {
+app.put("/bakery/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    await db.collection("backery").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
+    await db.collection("bakery").updateOne({ _id: new ObjectId(id) }, { $set: req.body });
     res.json({ message: "Product updated" });
   } catch (err) {
     res.status(500).json({ error: "Failed to update product" });
   }
 });
 
-app.delete("/backery/:id", async (req, res) => {
+app.delete("/bakery/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    await db.collection("backery").deleteOne({ _id: new ObjectId(id) });
+    await db.collection("bakery").deleteOne({ _id: new ObjectId(id) });
     res.json({ message: "Product deleted" });
   } catch (err) {
     res.status(500).json({ error: "Failed to delete product" });
@@ -176,7 +176,7 @@ app.get("/bevarages", async (req, res) => {
     const bevarages = await db.collection("bevarages").find({}).toArray();
     res.json(bevarages);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch detergent products" });
+    res.status(500).json({ error: "Failed to fetch products" });
   }
 });
 
