@@ -479,6 +479,7 @@ app.post("/api/userBankingDetails", async (req, res) => {
 });
 
 //ORDERS
+//ORDERS - FIXED VERSION
 app.post("/api/orders", async (req, res) => {
   try {
     await db.collection("orders").insertOne(req.body);
@@ -490,9 +491,16 @@ app.post("/api/orders", async (req, res) => {
 
 app.get("/api/orders/:email", async (req, res) => {
   try {
-    const orders = await db.collection("orders").find({ email: req.params.email }).toArray();
+    // FIX: Sort by createdAt descending (newest first)
+    const orders = await db
+      .collection("orders")
+      .find({ email: req.params.email })
+      .sort({ createdAt: -1 })
+      .toArray();
+    
     res.json(orders);
   } catch (err) {
+    console.error("Failed to fetch orders:", err);
     res.status(500).json({ error: "Failed to fetch orders" });
   }
 });
